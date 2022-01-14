@@ -22,6 +22,12 @@
     cursor: pointer;
 }
 
+.edit {
+    margin-left: 15px;
+    color: rgb(0, 132, 172);
+    cursor: pointer;
+}
+
 .tab-bar {
     display: flex;
 }

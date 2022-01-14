@@ -1,43 +1,79 @@
-import { useEffect } from "react";
-// import { useAppDispatch, useAppSelector } from "../hooks/redux";
-// import { deleteMessage, fetchMessages } from "../store/reducers/messagesSlice";
+import { useEffect, useState, useRef } from "react";
 import InputText from "./InputText";
-// import { createNewMessage } from "../store/reducers/messagesSlice";
 import Preloader from "./Preloader";
-import { useGetCommentsQuery, useAddNewCommentsMutation, useRemoveCommentsMutation } from '../redux/commentsApi'
+import { useGetCommentsQuery, useAddNewCommentsMutation, useRemoveCommentsMutation, useEditCommentMutation } from '../redux/commentsApi'
 
 export default function Comments() {
 
-    // const  { messages, status, error } = useAppSelector(state => state.messages);
-    // const dispatch = useAppDispatch();
-
     const { data = [], isLoading, isSuccess, isError, error } = useGetCommentsQuery();
-    const [addNewComment, addNewCommentStatus] = useAddNewCommentsMutation();
-    const [removeComment, removeCommentsStatus] = useRemoveCommentsMutation();
-    
-    const addNew = async (value) => {
-        await addNewComment({ body: value }).unwrap();
+    const [addNew, addNewStatus] = useAddNewCommentsMutation();
+    const [remove, removeStatus] = useRemoveCommentsMutation();
+    const [edit, editStatus] = useEditCommentMutation();
+
+    const [edited, setEdited] = useState(null);
+
+    const addNewComment = async (value) => {
+        await addNew(value).unwrap();
     }
-    
-    const remove = async (id) => {
-        await removeComment(id).unwrap();
+
+    const removeComment = async (id) => {
+        await remove(id).unwrap();
+    }
+
+    const editComment = async (value) => {
+        setEdited(null);
+        if (value)
+            await edit({ value, id: edited }).unwrap();
     }
 
     return (
         <div>
-            <InputText onSend={addNew} buttonText='Add your comments' />
-            {(isLoading || addNewCommentStatus.isLoading || removeCommentsStatus.isLoading) &&
+            <InputText onSend={addNewComment} buttonText='Add your comments' />
+            {(isLoading || addNewStatus.isLoading || removeStatus.isLoading || editStatus.isLoading) &&
                 <Preloader />
             }
             {isError &&
                 <h3>{error}</h3>
             }
-            {data.length > 0 && data.map(m =>
-                <div key={m.id} className='comments'>
-                    <span>{m.body}</span>
-                    <span className='remove' onClick={() => remove(m.id)}>&#10005;</span>
+            {data.length > 0 && data.map(com =>
+                <div key={com.id} className='comments'>
+                    {com.id === edited
+                        ?
+                        <Editor value={com.text} onEdit={editComment} />
+                        :
+                        <>
+                            <span>{com.text}</span>
+                            <span className='edit' onClick={() => setEdited(com.id)}>&#9998;</span>
+                            <span className='remove' onClick={() => removeComment(com.id)}>&#10005;</span>
+                        </>
+                    }
                 </div>
             )}
         </div>
     )
+}
+
+function Editor(props) {
+
+    const [text, setText] = useState(props.value);
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        inputRef.current.focus()
+    }, [])
+
+    const keyDown = (e) => {
+        if (e.code === 'Enter')
+            props.onEdit(text)
+        if (e.code === 'Escape')
+            props.onEdit('')
+    }
+
+    return <input
+        ref={inputRef}
+        type='text'
+        value={text}
+        onChange={v => setText(v.target.value)}
+        onKeyDown={keyDown}
+    />
 }

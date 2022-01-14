@@ -17,23 +17,31 @@ export const commentsApi = createApi({
                 [{ type: 'commentsList', id: 'LIST' }]
         }),
         addNewComments: builder.mutation({
-            query: (body) => {
+            query: (value) => {
                 return {
                     url: 'comments',
                     method: 'POST',
-                    body
+                    body: { text: value }
                 }
             },
-            invalidatesTags:  [{ type: 'commentsList', id: 'LIST' }] // for auto update after POST, DELETE, ...
+            invalidatesTags: [{ type: 'commentsList', id: 'LIST' }] // for auto update after POST
         }),
         removeComments: builder.mutation({
             query: (id) => ({
                 url: `comments/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags:  [{ type: 'commentsList', id: 'LIST' }] // for auto update after POST, DELETE, ...
+            invalidatesTags: [{ type: 'commentsList', id: 'LIST' }] // for auto update after DELETE
+        }),
+        editComment: builder.mutation({
+            query: ({ id, value }) => ({
+                url: `comments/${id}`,
+                method: 'PATCH',
+                body: { text: value }
+            }),
+            invalidatesTags: [{ type: 'commentsList', id: 'LIST' }] // for auto update after PATCH
         })
     })
 })
 
-export const { useGetCommentsQuery, useAddNewCommentsMutation, useRemoveCommentsMutation } = commentsApi;
+export const { useGetCommentsQuery, useAddNewCommentsMutation, useRemoveCommentsMutation, useEditCommentMutation } = commentsApi;
