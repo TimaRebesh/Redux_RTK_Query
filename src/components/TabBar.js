@@ -1,15 +1,14 @@
-// import { useAppDispatch, useAppSelector } from '../hooks/redux';
-// import { changeTab } from '../store/reducers/tabBarSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { changeTab } from '../redux/tabBarSlice';
 
 export default function TabBar() {
 
-    // const  { tabNumber } = useAppSelector(state => state.tabbar);
-    // const dispatch = useAppDispatch();
-    const tabNumber  = 1;
+    const  { tabNumber  } = useSelector(state => state.tabbar);
+    const dispatch = useDispatch();
     
     const tabs = [
-        { id: 1, text: 'Comments' },
-        { id: 2, text: 'ToDo' },
+        { id: 1, text: 'Users' },
+        { id: 2, text: 'Comments' },
     ]
 
     return (
@@ -18,7 +17,7 @@ export default function TabBar() {
                 <div
                     key={t.id}
                     className={`tab ${t.id === tabNumber ? 'selected' : ''}`}
-                    // onClick={() => dispatch(changeTab(t.id))}
+                    onClick={() => dispatch(changeTab(t.id))}
                 >
                     <div className='tab-content'>{t.text}</div>
                 </div>
