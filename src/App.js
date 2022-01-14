@@ -1,15 +1,25 @@
 import React from 'react';
-import { useGetCommentsQuery } from './redux/commentsApi'
+import Comments from './components/Comments';
+import TabBar from './components/TabBar';
+
 
 function App() {
 
-  const { isLoading, isSuccess, isError } = useGetCommentsQuery();
+ 
 
-  console.log(isLoading, isSuccess, isError)
+  const tabNumber = 1;
+
+  const getContent = () => {
+    if (tabNumber === 1)
+      return <Comments />
+    if (tabNumber === 2)
+      return null
+  }
 
   return (
     <div className="App">
-      dfdfd
+      <TabBar />
+      {getContent()}
     </div>
   );
 }

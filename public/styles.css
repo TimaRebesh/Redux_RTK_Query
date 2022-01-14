@@ -1,0 +1,43 @@
+.message {
+    margin: 10px;
+}
+
+.date {
+    color: rgb(13, 171, 219);
+    font-size: 11px;
+    margin-right: 10px;
+}
+
+.remove {
+    margin-left: 15px;
+    color: red;
+    cursor: pointer;
+}
+
+.tab-bar {
+    display: flex;
+}
+
+.tab {
+    width: 100%;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.tab-content {
+    text-align: center;
+}
+
+.selected {
+    background-color: rgb(69, 174, 200);
+    color: white;
+}
+
+.preloader {
+    display: flex;
+}
+
+.preloader-content {
+    position: absolute;
+    margin: 10% 48%;
+}
