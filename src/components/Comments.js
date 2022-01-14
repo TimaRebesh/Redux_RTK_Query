@@ -14,13 +14,13 @@ export default function Comments() {
     const { data = [], isLoading, isSuccess, isError, error } = useGetCommentsQuery();
     const [addNewComment, addNewCommentStatus] = useAddNewCommentsMutation();
     const [removeComment, removeCommentsStatus] = useRemoveCommentsMutation();
-
-    const remove = async (id) => {
-        await removeComment(id).unwrap();
-    }
-
+    
     const addNew = async (value) => {
         await addNewComment({ body: value }).unwrap();
+    }
+    
+    const remove = async (id) => {
+        await removeComment(id).unwrap();
     }
 
     return (

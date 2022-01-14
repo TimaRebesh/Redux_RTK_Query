@@ -30,7 +30,6 @@ export const commentsApi = createApi({
             query: (id) => ({
                 url: `comments/${id}`,
                 method: 'DELETE',
-                body: id
             }),
             invalidatesTags:  [{ type: 'commentsList', id: 'LIST' }] // for auto update after POST, DELETE, ...
         })
