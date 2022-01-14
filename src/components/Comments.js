@@ -4,34 +4,34 @@ import { useEffect } from "react";
 import InputText from "./InputText";
 // import { createNewMessage } from "../store/reducers/messagesSlice";
 import Preloader from "./Preloader";
-import { useGetCommentsQuery } from '../redux/commentsApi'
+import { useGetCommentsQuery, useAddNewCommentsMutation, useRemoveCommentsMutation } from '../redux/commentsApi'
 
 export default function Comments() {
 
     // const  { messages, status, error } = useAppSelector(state => state.messages);
     // const dispatch = useAppDispatch();
 
-    const { data = [], isLoading, isSuccess, isError } = useGetCommentsQuery();
+    const { data = [], isLoading, isSuccess, isError, error } = useGetCommentsQuery();
+    const [addNewComment, addNewCommentStatus] = useAddNewCommentsMutation();
+    const [removeComment, removeCommentsStatus] = useRemoveCommentsMutation();
 
-    console.log(isLoading, isSuccess, isError, data)
+    const remove = async (id) => {
+        await removeComment(id).unwrap();
+    }
 
-    useEffect(() => {
-    //    dispatch(fetchMessages());
-    }, [])
-
-    const remove = (id) => {
-        // dispatch(deleteMessage(id))
+    const addNew = async (value) => {
+        await addNewComment({ body: value }).unwrap();
     }
 
     return (
         <div>
-            <InputText  />
-            {/* {status === 'loading' &&
+            <InputText onSend={addNew} buttonText='Add your comments' />
+            {(isLoading || addNewCommentStatus.isLoading || removeCommentsStatus.isLoading) &&
                 <Preloader />
             }
-            {error &&
+            {isError &&
                 <h3>{error}</h3>
-            } */}
+            }
             {data.length > 0 && data.map(m =>
                 <div key={m.id} className='comments'>
                     <span>{m.body}</span>

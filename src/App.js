@@ -5,8 +5,6 @@ import TabBar from './components/TabBar';
 
 function App() {
 
- 
-
   const tabNumber = 1;
 
   const getContent = () => {
