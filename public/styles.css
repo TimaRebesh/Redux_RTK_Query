@@ -1,4 +1,12 @@
-.message {
+.App {
+    text-align: center;
+}
+
+.input_text {
+    margin: 10px;
+}
+
+.comments {
     margin: 10px;
 }
 

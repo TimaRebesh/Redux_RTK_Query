@@ -17,7 +17,7 @@ export default function InputText(props) {
     }
 
     return (
-        <div>
+        <div className='input_text'>
             <input
                 type='text'
                 value={text}

@@ -33,7 +33,7 @@ export default function Comments() {
                 <h3>{error}</h3>
             } */}
             {data.length > 0 && data.map(m =>
-                <div key={m.id} className='message'>
+                <div key={m.id} className='comments'>
                     <span>{m.body}</span>
                     <span className='remove' onClick={() => remove(m.id)}>&#10005;</span>
                 </div>
