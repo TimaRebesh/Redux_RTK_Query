@@ -2,6 +2,34 @@
     text-align: center;
 }
 
+.block {
+    flex-direction: column;
+    display: inline-flex;
+}
+
+.user {
+    border: 1px solid gray;
+    width: 500px;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+    position: relative;
+}
+
+.field {
+    margin: 5px 0;
+}
+
+.edit_remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.label {
+    color: rgb(97, 174, 219);
+}
+
 .input_text {
     margin: 10px;
 }

@@ -1,8 +1,10 @@
 import React from 'react';
 import Comments from './components/Comments';
+import Users from './components/Users'
 import TabBar from './components/TabBar';
 import { useSelector } from "react-redux";
 
+// to start application use npm run dev
 
 function App() {
 
@@ -10,7 +12,7 @@ function App() {
 
   const getContent = () => {
     if (tabNumber === 1)
-      return null
+      return <Users />
     if (tabNumber === 2)
       return <Comments />
   }

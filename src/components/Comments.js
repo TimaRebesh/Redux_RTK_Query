@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import InputText from "./InputText";
 import Preloader from "./Preloader";
-import { useGetCommentsQuery, useAddNewCommentsMutation, useRemoveCommentsMutation, useEditCommentMutation } from '../redux/commentsApi'
+import { useGetCommentsQuery, useAddNewCommentsMutation, useRemoveCommentsMutation, useEditCommentMutation } from '../redux/commentsApi';
 
 export default function Comments() {
 

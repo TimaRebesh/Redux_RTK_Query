@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const commentsApi = createApi({
+const commentsApi = createApi({
     reducerPath: 'commentApi',
     tagTypes: 'commentsList',   // for auto update after POST, DELETE, ...
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/' }),
@@ -45,3 +45,5 @@ export const commentsApi = createApi({
 })
 
 export const { useGetCommentsQuery, useAddNewCommentsMutation, useRemoveCommentsMutation, useEditCommentMutation } = commentsApi;
+
+export default commentsApi;
